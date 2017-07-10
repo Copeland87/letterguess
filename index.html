@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Psychic</title>
+	<meta charset="utf-8"
+	<meta name="viewport" content="width=device-width, inital-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
+</head>
+
+<body>
+
+<div class="jumbotron">
+	<div class="row">
+	  <div class="col-lg-3 col-md-3 col-sm-4">
+		<img src="force.jpg" class="img-responsive center-block" alt="psychic">
+	  </div>
+	  
+	  <div class="col-lg-6 col-md-6 col-sm-6" id="game">
+		<p><h1>The Psychic Game</h1></p>
+		<p><h4>Guess what letter I'm thinking of</h4></p>
+		<p><h4>Wins: 0</h4></p>
+		<p><h4>Losses: 0</h4></p>
+		<p><h4>Guesses Left: 9</h4></p>
+		<p><h4>Your guesses so far: </h4></p>
+	  </div>
+	</div>
+</div>
+
+
+<script>
+
+var alphabetLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var wins = 0;
+var losses = 0;
+var guessesLeft = 9;
+var guessesSoFar = [];
+var userGuess = null;
+var letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+console.log("Wins: " + wins + " Losses: " + losses + " GuessesLeft: " + guessesLeft + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+
+
+
+document.onkeyup = function(event) {
+
+  var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+  if (guessesSoFar.indexOf(userGuess) < 0 && alphabetLetters.indexOf(userGuess) >= 0) {
+		guessesSoFar[guessesSoFar.length]=userGuess;
+		guessesLeft--;
+	}
+
+  if (letterToBeGuessed == userGuess) {
+		wins++;
+		console.log("You won!");
+		guessesLeft = 9;
+		guessesSoFar = [];
+		letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+		console.log("Wins: " + wins + " Losses: " + losses + " GuessesLeft: " + guessesLeft + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+	}
+
+  if (guessesLeft == 0) {
+		losses++;
+		console.log("You lost!");
+		guessesLeft = 9;
+		guessesSoFar = [];
+		letterToBeGuessed = alphabetLetters[Math.floor(Math.random() * alphabetLetters.length)];
+		console.log("Wins: " + wins + " Losses: " + losses + " GuessesLeft: " + guessesLeft + " Guesses so far: " + guessesSoFar + " Computer picked: " + letterToBeGuessed);
+	}
+
+	if (losses > 8) {
+		alert ("Welcome to the Dark Side!")
+	}
+
+	if (wins > 8) {
+		alert ("What do you want, a cookie?!")
+	}
+
+  var html = "<p><h1>The Psychic Game</h1></p>" + "<p><h4>Guess what letter I\'m thinking of</h4></p>" + "<p><h4>Wins: " + wins + "</h4></p>" + "<p><h4>Losses: " + losses + "</h4></p>" + "<p><h4>Guesses Left: " + guessesLeft + "</h4></p>" + "<p><h4>Your guesses so far: " + guessesSoFar + "</h4></p>";
+	
+  document.querySelector("#game").innerHTML = html;
+
+}
+
+</script>
+
+
+</body>
+</html>
